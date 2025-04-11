@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ulang Tahun Ke-2</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Courier New', Courier, monospace;
+      background: linear-gradient(to bottom, #ffe6e6, #fff0f5);
+      color: #333;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .intro-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: #ffc0cb;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+      text-align: center;
+      transition: opacity 1s;
+    }
+
+    .intro-screen h1 {
+      font-size: 2.5rem;
+      color: white;
+      margin-bottom: 1rem;
+    }
+
+    .intro-screen button {
+      background-color: #ff4d6d;
+      color: white;
+      border: none;
+      padding: 0.8rem 2rem;
+      font-size: 1.2rem;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .intro-screen button:hover {
+      background-color: #d6336c;
+    }
+
+    .page {
+      display: none;
+      padding: 2rem;
+      animation: fadeIn 1s;
+      min-height: 100vh;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .nav-button {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+    }
+
+    .nav-button button {
+      background-color: #ff4d6d;
+      color: white;
+      border: none;
+      padding: 0.5rem 1.5rem;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .heart {
+      position: fixed;
+      top: -50px;
+      font-size: 2rem;
+      animation: floatDown 6s linear infinite;
+      opacity: 0.7;
+      color: #ff4d6d;
+      z-index: 0;
+    }
+
+    @keyframes floatDown {
+      0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    #btn-no {
+      position: absolute;
+      background-color: #f06292;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: top 0.2s, left 0.2s;
+    }
+
+    #btn-yes {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .gallery-item {
+      width: calc(50% - 1rem);
+      background: #fff;
+      border-radius: 10px;
+      padding: 1rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    .gallery-item p {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .emoji-bouquet {
+      font-size: 100px;
+      animation: bounce 2s infinite;
+      text-align: center;
+      margin: 2rem auto;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .falling-flower {
+      position: fixed;
+      top: -50px;
+      font-size: 2rem;
+      animation: fallDown 6s linear infinite;
+      opacity: 0.8;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    @keyframes fallDown {
+      0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="intro-screen" id="intro">
+    <h1>Hai Cintaku 💕</h1>
+    <p>Siap untuk membuka halaman spesial ulang tahun ke-2 kita?</p>
+    <button onclick="startAnniversary()">Buka Halaman</button>
+  </div>
+
+  <div id="main-content">
+    <div class="page active" id="page1">
+      <h2>🎉 Momen Spesial Kita 🎉</h2>
+      <p>Walau kita belum pernah bertemu langsung, tapi tiap momen virtual bersama itu tetap berharga 💖</p>
+      <div class="gallery">
+        <div class="gallery-item">
+          <img src="https://via.placeholder.com/200x200?text=Foto+1" alt="Foto 1">
+          <p>Aku suka foto ini karena kamu senyumnya manis banget 😍</p>
+        </div>
+        <div class="gallery-item">
+          <img src="https://via.placeholder.com/200x200?text=Foto+2" alt="Foto 2">
+          <p>Foto ini lucu banget, bikin aku kangen tiap lihat 🫩</p>
+        </div>
+      </div>
+      <div class="nav-button">
+        <span></span>
+        <button onclick="goToPage('page2')">Selanjutnya ➔️</button>
+      </div>
+    </div>
+
+    <div class="page" id="page2">
+      <h2>💌 Surat Cinta 💌</h2>
+      <p>Sayang, terima kasih telah menjadi bagian dari hidupku. 2 tahun bersamamu adalah anugerah paling indah dalam hidupku. Kita mungkin belum pernah saling genggam tangan, tapi hatimu sudah menggenggamku erat sejak lama. Aku mencintaimu dengan segenap jiwaku, dan tak sabar menua bersamamu, mencipta kenangan nyata yang tak tergantikan. Kamu adalah pelangi setelah hujan, senyum di hari paling sepi, dan pelukan yang selalu kurindukan meski belum pernah kurasakan. Aku berjanji akan terus menyayangimu, apapun yang terjadi. I love u more, sayangku, cintaku, manisku. 💞</p>
+      <p>Semoga suatu hari nanti kita bisa berbagi tawa di satu ruangan, menyentuh tangan, dan saling memeluk tanpa batasan layar. Dunia ini luas, tapi cintaku untukmu selalu menemukan jalan. Kamu adalah alasan aku tersenyum setiap hari. Denganmu, aku merasa dicintai dengan cara yang paling tulus dan indah. I love you to the moon and back, lebih dari kata-kata bisa ungkapkan. 🌙❤️</p>
+      <div class="nav-button">
+        <button onclick="goToPage('page1')">⬅️ Sebelumnya</button>
+        <button onclick="goToPage('page3')">Selanjutnya ➔️</button>
+      </div>
+    </div>
+
+    <div class="page" id="page3">
+      <h2>🎶 Playlist Cinta Kita 🎶</h2>
+      <ul>
+        <li>❤️ "Perfect" - Ed Sheeran</li>
+        <li>❤️ "2002" - Anne Marie</li>
+        <li>❤️ "Cinta Luar Biasa" - Andmesh</li>
+      </ul>
+      <div class="nav-button">
+        <button onclick="goToPage('page2')">⬅️ Sebelumnya</button>
+        <button onclick="goToPage('page4')">Selanjutnya ➔️</button>
+      </div>
+    </div>
+
+    <div class="page" id="page4">
+      <h2>🎮 Mini Games Spesial Cinta Kita 🎮</h2>
+      <h3>1. Roda Cinta Berputar</h3>
+      <button onclick="spinLoveWheel()">Putar Roda!</button>
+      <p id="wheel-result"></p>
+
+      <h3 style="margin-top:2rem;">2. Seberapa Kenal Kamu?</h3>
+      <p>Makanan favoritku?</p>
+      <input type="text" id="quiz1"><button onclick="checkQuiz1()">Jawab</button>
+      <p id="quiz1-result"></p>
+
+      <h3 style="margin-top:2rem;">3. Kado Impian</h3>
+      <p>Kalau aku bisa kasih kamu satu hal di dunia ini, kamu mau apa?</p>
+      <input type="text" id="wish"><button onclick="alert('Pasti aku usahakan untuk mewujudkan itu 💝')">Kirim</button>
+
+      <div class="nav-button">
+        <button onclick="goToPage('page3')">⬅️ Sebelumnya</button>
+        <button onclick="goToPage('page5')">Selanjutnya ➔️</button>
+      </div>
+    </div>
+
+    <div class="page" id="page5">
+      <h2>💘 Pertanyaan Spesial 💘</h2>
+      <p style="font-size: 1.3rem;">Kamu mau gak bersama aku selamanya? 😘</p>
+      <div class="game">
+        <button id="btn-yes" onclick="alert('Aku juga mau selamanya sama kamu! 🥰')">Mau</button>
+        <button id="btn-no">Gak Mau</button>
+      </div>
+      <div class="nav-button" style="margin-top: 3rem;">
+        <button onclick="goToPage('page4')">⬅️ Sebelumnya</button>
+        <button onclick="goToPage('page6')">Selanjutnya ➔️</button>
+      </div>
+    </div>
+
+    <div class="page" id="page6">
+      <h2>💐 Bunga Virtual Untukmu 💐</h2>
+      <p style="font-size: 1.2rem; text-align: center;">Karena kamu pantas menerima hal-hal paling indah di dunia ini 🌸</p>
+      <div class="emoji-bouquet">💐</div>
+      <p style="text-align: center; margin-top: 1rem;">Semoga setiap hari kamu selalu merasa dicintai, seperti aku mencintaimu sekarang 💖</p>
+      <div class="nav-button" style="margin-top: 3rem;">
+        <button onclick="goToPage('page5')">⬅️ Sebelumnya</button>
+      </div>
+    </div>
+  </div>
+
+  <audio id="bg-music" loop autoplay>
+    <source src="https://cdn.pixabay.com/audio/2023/03/16/audio_d0f8c03c74.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    function startAnniversary() {
+      document.getElementById('intro').style.opacity = 0;
+      setTimeout(() => {
+        document.getElementById('intro').style.display = 'none';
+      }, 1000);
+    }
+
+    function goToPage(pageId) {
+      const pages = document.querySelectorAll('.page');
+      pages.forEach(page => page.classList.remove('active'));
+      document.getElementById(pageId).classList.add('active');
+    }
+
+    function spinLoveWheel() {
+      const actions = [
+        "Kirim voice note bilang 'I love you' 5x!",
+        "Kirim peluk virtual! 🤗",
+        "Kirim foto selfie paling lucu sekarang!",
+        "Bilang 'aku kangen' 3x dengan gaya manja 😚",
+        "Peluk boneka dan kirim videonya buat aku!"
+      ];
+      const result = actions[Math.floor(Math.random() * actions.length)];
+      document.getElementById("wheel-result").innerText = result;
+    }
+
+    function checkQuiz1() {
+      const ans = document.getElementById("quiz1").value.toLowerCase();
+      const result = document.getElementById("quiz1-result");
+      if (ans.includes("ayam") || ans.includes("bakso") || ans.includes("sate")) {
+        result.innerText = "Benar banget! 😍";
+      } else {
+        result.innerText = "Hehe coba ingat lagi, sayang~";
+      }
+    }
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (3 + Math.random() * 3) + 's';
+      heart.innerHTML = '💖';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }
+
+    setInterval(createHeart, 400);
+
+    const btnNo = document.getElementById('btn-no');
+    if (btnNo) {
+      btnNo.addEventListener('mouseover', () => {
+        const x = Math.random() * (window.innerWidth - 100);
+        const y = Math.random() * (window.innerHeight - 100);
+        btnNo.style.left = `${x}px`;
+        btnNo.style.top = `${y}px`;
+      });
+    }
+
+    function createFallingFlower() {
+      const flower = document.createElement('div');
+      flower.className = 'falling-flower';
+      flower.style.left = Math.random() * 100 + 'vw';
+      flower.style.animationDuration = (4 + Math.random() * 3) + 's';
+      flower.innerHTML = '🌸';
+      document.body.appendChild(flower);
+      setTimeout(() => flower.remove(), 7000);
+    }
+
+    setInterval(() => {
+      const currentPage = document.querySelector('.page.active');
+      if (currentPage && currentPage.id === 'page6') {
+        createFallingFlower();
+      }
+    }, 400);
+  </script>
+</body>
+</html>
